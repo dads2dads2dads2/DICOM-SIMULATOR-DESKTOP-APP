@@ -13,18 +13,11 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - platform: 'macos-latest'
-            args: '--target aarch64-apple-darwin'
-            python_version: '3.12'
+      
           - platform: 'macos-latest'
             args: '--target x86_64-apple-darwin'
             python_version: '3.12'
-          - platform: 'ubuntu-22.04'
-            args: ''
-            python_version: '3.12'
-          - platform: 'windows-latest'
-            args: ''
-            python_version: '3.12'
+         
 
     runs-on: ${{ matrix.platform }}
     steps:
