@@ -61,7 +61,9 @@ jobs:
       - name: Install LLVM on macOS
         if: matrix.platform == 'macos-latest'
         run: |
-          xcode-select --install
+           brew install llvm
+           echo 'export PATH="/usr/local/opt/llvm/bin:$PATH"' >> ~/.bash_profile
+           source ~/.bash_profile
       - name: Install LLVM on Windows
         if: matrix.platform == 'windows-latest'
         run: |
