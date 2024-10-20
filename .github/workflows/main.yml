@@ -72,7 +72,6 @@ jobs:
       # 安装前端依赖
       - name: install frontend dependencies
         run: pnpm install
-
     
 
       - name: Add Cargo config
