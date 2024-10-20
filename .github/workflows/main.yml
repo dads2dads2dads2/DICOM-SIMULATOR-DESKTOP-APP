@@ -73,22 +73,27 @@ jobs:
       - name: install frontend dependencies
         run: pnpm install
 
-      - name: link cargo 
-        run: | mkdir -p .cargo  # 确保 .cargo 目录存在
+    
 
-echo '
-[target.x86_64-apple-darwin]
-rustflags = [
-  "-C", "link-arg=-undefined",
-  "-C", "link-arg=dynamic_lookup",
-]
+      - name: Add Cargo config
+        run: |
+          mkdir -p .cargo  # 确保 .cargo 目录存在
+          cat <<EOF >> .cargo/config.toml
+          [target.x86_64-apple-darwin]
+          rustflags = [
+            "-C", "link-arg=-undefined",
+            "-C", "link-arg=dynamic_lookup",
+          ]
 
-[target.aarch64-apple-darwin]
-rustflags = [
-  "-C", "link-arg=-undefined",
-  "-C", "link-arg=dynamic_lookup",
-]
-' >> .cargo/config.toml
+          [target.aarch64-apple-darwin]
+          rustflags = [
+            "-C", "link-arg=-undefined",
+            "-C", "link-arg=dynamic_lookup",
+          ]
+          EOF
+          echo "Cargo config added."
+          
+          
 
       # 使用 tauri 构建
       - uses: tauri-apps/tauri-action@v0
